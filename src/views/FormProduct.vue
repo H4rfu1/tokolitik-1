@@ -23,7 +23,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
               </svg>
               </router-link>
-              <h1 class="font-semibold text-lg ml-4">Edit Profil</h1>
+              <h1 class="font-semibold text-lg ml-4">Tambah Produk</h1>
             </div>
              <div class="text-right sm:px-6 float-right w-full">
               <button type="submit" class="text-blue-600 hover:text-blue-400 font-semibold">
@@ -40,48 +40,47 @@
             <div class="grid grid-cols-1 gap-6 py-2">
               <div class="col-span-3 sm:col-span-2 text-left">
                 <label for="birth_date" class="block font-medium text-gray-700">
-                Username
+                Nama Produk
                 </label>
                 <input
-                  v-model="post.username"
+                  v-model="post.productName"
                   type="text"
                   class="focus:ring-blue-500 focus:border-blue-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300"
-                  @blur="v$.post.username.$touch"
-                  :class="{ 'border-red-600': v$.post.username.$error }"
+                  @blur="v$.post.productName.$touch"
+                  :class="{ 'border-red-600': v$.post.productName.$error }"
                 >
-                <small v-if="v$.post.username.$error" class="text-red-600">Username tidak boleh kosong</small>
+                <small v-if="v$.post.productName.$error" class="text-red-600">Nama produk tidak boleh kosong</small>
               </div>
             </div>
             <div class="grid grid-cols-1 gap-6 py-2">
               <div class="col-span-3 sm:col-span-2 text-left">
                 <label for="birth_date" class="block font-medium text-gray-700">
-                  Email
+                  Harga
                 <!-- <span v-if="required" class="text-xs font-semibold">*</span> -->
                 </label>
                 <input
-                  v-model="post.email"
-                  type="email"
+                  v-model="post.price"
+                  type="number"
                   class="focus:ring-blue-500 focus:border-blue-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300"
-                  @blur="v$.post.email.$touch"
-                  :class="{ 'border-red-600': v$.post.email.$error }"
+                  @blur="v$.post.price.$touch"
+                  :class="{ 'border-red-600': v$.post.price.$error }"
                 >
-                <small v-if="v$.post.email.$error" class="text-red-600">Email tidak boleh kosong</small>
-                <small v-if="v$.post.email.$error" class="text-red-600">Email tidak valid</small>
+                <small v-if="v$.post.price.$error" class="text-red-600">Harga tidak boleh kosong</small>
               </div>
             </div>
             <div class="grid grid-cols-1 gap-6 py-2">
               <div class="col-span-3 sm:col-span-2 text-left">
                 <label for="birth_date" class="block font-medium text-gray-700">
-                  Password
+                  Gambar ?
                 </label>
-                <input
-                  v-model="post.password"
-                  type="password"
-                  class="focus:ring-blue-500 focus:border-blue-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300"
-                  @blur="v$.post.password.$touch"
-                  :class="{ 'border-red-600': v$.post.password.$error }"
-                >
-                <small v-if="v$.post.password.$error" class="text-red-600">Password tidak boleh kosong</small>
+                <label class="cursor-pointer flex flex-col w-32 h-32 border-2 rounded-md hover:bg-gray-100 hover:border-gray-300">
+                  <img v-if="post.photo !== ''" class="w-32 h-32 rounded-full" :src="post.photo" alt="">
+                  <svg v-if="post.photo === ''" xmlns="http://www.w3.org/2000/svg" class="mt-4 h-32 w-32" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                    <input
+                    type="file" class="opacity-0" @change="handleImageLogo"/>
+                </label>
               </div>
             </div>
           </div>
@@ -97,7 +96,7 @@ import BaseView from '@/components/BaseView.vue'
 
 // validate
 import useVuelidate from '@vuelidate/core'
-import { required, email } from '@vuelidate/validators'
+import { required } from '@vuelidate/validators'
 
 import axios from 'axios'
 
@@ -120,9 +119,8 @@ export default {
   validations () {
     return {
       post: {
-        username: { required },
-        password: { required },
-        email: { required, email }
+        productName: { required },
+        price: { required }
       }
     }
   },

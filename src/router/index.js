@@ -1,11 +1,10 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
-import ForgotPassword from '../views/ForgotPassword.vue'
 import Home from '../views/Home.vue'
 import Profil from '../views/Profil.vue'
 import ProfilEdit from '../views/ProfilEdit.vue'
-import ArticleDetail from '../views/ArticleDetail.vue'
+import FormProduct from '../views/FormProduct.vue'
 
 const routes = [
   {
@@ -19,19 +18,14 @@ const routes = [
     component: Register
   },
   {
-    path: '/reset-password',
-    name: 'ForgotPassword',
-    component: ForgotPassword
-  },
-  {
     path: '/',
     name: 'Home',
     component: Home
   },
   {
-    path: '/artikel/:id',
-    name: 'ArticleDetail',
-    component: ArticleDetail
+    path: '/produk/tambah',
+    name: 'FormProduct',
+    component: FormProduct
   },
   {
     path: '/profil',
